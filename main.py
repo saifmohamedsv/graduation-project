@@ -19,9 +19,9 @@ file = open(r"pickle/model.pkl","rb")
 gbc = pickle.load(file)
 file.close()
 
-with open(r'sms\archive\pickle\sms_model2.pkl', 'rb') as f:
+with open(r'sms/archive/pickle/sms_model2.pkl', 'rb') as f:
     classifier = pickle.load(f)
-with open(r'sms\archive\pickle\preprocessed_data.pkl', 'rb') as f:
+with open(r'sms/archive/pickle/preprocessed_data.pkl', 'rb') as f:
     cv, X, y = pickle.load(f)
 
 app.add_middleware(
