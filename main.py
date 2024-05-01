@@ -4,6 +4,7 @@ from pydantic import BaseModel
 import numpy as np
 import warnings
 import pickle
+import nltk
 from datetime import datetime
 from pydantic import BaseModel
 from motor.motor_asyncio import AsyncIOMotorClient
@@ -14,6 +15,11 @@ from fastapi.responses import JSONResponse
 from datetime import datetime
 
 app = FastAPI()
+
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('punkt')
+
 
 file = open(r"pickle/model.pkl","rb")
 gbc = pickle.load(file)
