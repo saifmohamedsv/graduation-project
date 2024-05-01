@@ -77,10 +77,14 @@ async def root(item: RequestBody):
         features = np.array(FeatureExtraction(item.payload).getFeaturesList()).reshape(1, 30)
         y_pred = gbc.predict(features)[0]
         if y_pred == 0:
-            saved_payload = await save_payload(item.payload, item.model, y_pred, item.uid)
-            return saved_payload
+            saved_url_payload = await save_payload(item.payload, item.model, y_pred, item.uid)
+            return saved_url_payload
         else:
             return ResponseBody(id='', payload=item.payload, model=item.model, created_at=datetime.now(), status=y_pred, uid=item.uid)
     else:
-        print(item.payload)
-        return ResponseBody(id='', payload=item.payload, model=item.model, created_at=datetime.now(), status=sms_predictor(classifier,cv).predict_spam(item.payload), uid=item.uid)
+        sms_pred = sms_predictor(classifier,cv).predict_spam(item.payload)
+        if sms_pred == 1:
+            saved_sms_payload = await save_payload(item.payload, item.model, sms_pred, item.uid)
+            return saved_sms_payload
+        else:
+            return ResponseBody(id='', payload=item.payload, model=item.model, created_at=datetime.now(), status=sms_pred, uid=item.uid)
