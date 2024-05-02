@@ -90,7 +90,7 @@ async def root(item: RequestBody):
     else:
         sms_pred = sms_predictor(classifier,cv).predict_spam(item.payload)
         if sms_pred == 1:
-            saved_sms_payload = await save_payload(item.payload, item.model, sms_pred, item.uid)
+            saved_sms_payload = await save_payload(item.payload, item.model, 0, item.uid)
             return saved_sms_payload
         else:
-            return ResponseBody(id='', payload=item.payload, model=item.model, created_at=datetime.now(), status=sms_pred, uid=item.uid)
+            return ResponseBody(id='', payload=item.payload, model=item.model, created_at=datetime.now(), status=1, uid=item.uid)
