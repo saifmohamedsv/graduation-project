@@ -68,7 +68,6 @@ async def get_user_payloads(uid: str):
 
     return JSONResponse(content=payloads)
 
-
 async def save_payload(payload: str, model: str, status: np.int64, uid: str) -> ResponseBody:
     ts = datetime.now()
     status_int = int(status)
